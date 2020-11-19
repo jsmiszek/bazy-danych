@@ -94,11 +94,11 @@ VALUES
 
 --7,8,9,10
 --Tworzenie kopii bazy danych i przywracanie:
-pg_dump -U postgres s290942 > s290942.bak
-dropdb -U postgres s290942
-createdb -U postgres s290942_backup
-psql -U postgres s290942_backup < s290942.bak
-ALTER DATABASE s290942_backup RENAME TO s290942
+pg_dump -U postgres s291515 > s291515.bak
+dropdb -U postgres s291515
+createdb -U postgres s291515_backup
+psql -U postgres s291515_backup < s291515.bak
+ALTER DATABASE s291515_backup RENAME TO s291515
 
 --11
 --a
@@ -239,14 +239,14 @@ SELECT * FROM pg_catalog.pg_user;
 --b
 CREATE USER Superuser291515 SUPERUSER;
 CREATE USER guest291515;
-GRANT SELECT ON ALL TABLES IN SCHEMA firma TO guest298262;
-GRANT SELECT ON ALL TABLES IN SCHEMA sklep TO guest298262;
+GRANT SELECT ON ALL TABLES IN SCHEMA firma TO guest291515;
+GRANT SELECT ON ALL TABLES IN SCHEMA sklep TO guest291515;
 \du
 
 --c
 ALTER USER Superuser291515 RENAME TO student;
 ALTER USER student WITH NOSUPERUSER;
-GRANT SELECT ON ALL TABLES IN SCHEMA firma TO guest298262;
+GRANT SELECT ON ALL TABLES IN SCHEMA firma TO guest291515;
 DROP OWNED BY guest291515;
 DROP USER guest291515;
 
