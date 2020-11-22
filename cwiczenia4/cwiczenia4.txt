@@ -40,7 +40,12 @@ FROM (SELECT ST_Buffer(ST_ShortestLine(
 
 
 -- 7
--- zakładając, że cała alaska jest tundrą i bagnami:
-SELECT vegdesc AS type, sum(area_km2) as total_area
-FROM trees 
-GROUP BY vegdesc, f_codedesc;
+SELECT res.vegdesc, sum(res.sum) FROM
+ (SELECT vegdesc, SUM(trees.area_km2) 
+	FROM trees JOIN tundra ON ST_Contains(tundra.geom, trees.geom) 
+	GROUP BY vegdesc
+	UNION ALL
+ 	SELECT vegdesc, SUM(trees.area_km2) 
+	FROM trees JOIN swamp ON ST_Contains(swamp.geom, trees.geom) 
+	GROUP BY vegdesc) AS res
+GROUP BY res.vegdesc;
