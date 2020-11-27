@@ -1,0 +1,50 @@
+-- 1
+SELECT matchid, player FROM gole WHERE teamid='POL';
+
+-- 2
+SELECT mecze.* FROM mecze 
+JOIN gole ON mecze.id=gole.matchid
+WHERE mecze.id=1004 AND player='Jakub Blaszczykowski';
+
+-- 3
+SELECT player, stadium, mdate, teamname FROM mecze 
+JOIN gole ON mecze.id=gole.matchid
+JOIN druzyny ON druzyny.id=gole.teamid
+WHERE teamid='POL';
+
+-- 4
+SELECT team1, team2, player FROM mecze 
+JOIN gole ON mecze.id=gole.matchid
+WHERE player LIKE 'Mario %';
+
+-- 5
+SELECT player, teamid, coach, gtime FROM gole
+JOIN druzyny ON teamid=id
+WHERE gtime<=10;
+
+-- 6
+SELECT teamname, mdate FROM druzyny
+JOIN mecze ON team1=druzyny.id OR team2=druzyny.id
+WHERE coach='Franciszek Smuda';
+
+-- 7
+SELECT player FROM gole 
+JOIN mecze ON id=matchid
+WHERE stadium = 'National Stadium, Warsaw';
+
+-- 8
+SELECT player FROM mecze 
+JOIN gole ON id=matchid
+WHERE team1='GER' OR team2='GER';
+
+-- 9
+SELECT teamname, COUNT(teamid) AS liczba_goli FROM druzyny
+JOIN gole ON id=teamid 
+GROUP BY teamname 
+ORDER BY liczba_goli DESC;
+
+-- 10
+SELECT stadium, COUNT(player) AS liczba_goli FROM mecze
+JOIN gole ON id=matchid
+GROUP BY stadium 
+ORDER BY liczba_goli DESC;
