@@ -1,0 +1,13 @@
+CREATE DATABASE cw7;
+
+-- w cmd:
+pg_restore -h localhost -p 5000 -U postgres -d cw7 -1 C:\Users\postgis_raster.backup
+
+-- w pgAdmin
+CREATE EXTENSION postgis_raster;
+ALTER SCHEMA schema_name RENAME TO smiszek;
+
+-- cmd w katalogu PostgreSQL\13\bin
+raster2pgsql.exe -s 3763 -N -32767 -t 100x100 -I -C -M -d srtm_1arc_v3.tif rasters.dem | psql -d cw7 -h localhost -U postgres -p 5000
+
+raster2pgsql.exe -s 3763 -N -32767 -t 128x128 -I -C -M -d Landsat8_L1TP_RGBN.tif rasters.landsat8 | psql -d cw7 -h localhost -U postgres -p 5000
